@@ -1,0 +1,24 @@
+[
+  {
+    "name": "ayoayo",
+    "price": 100,
+    "labels": [
+      "On wheels"
+    ],
+    "inStock": false,
+    "createdAt": 1647364737146,
+    "_id": "tNeW9"
+  },
+  {
+    "name": "bruhhh",
+    "price": 300,
+    "labels": [
+      "On wheels",
+      "Box game",
+      "Art"
+    ],
+    "inStock": true,
+    "createdAt": 1647364753352,
+    "_id": "TpfH1"
+  }
+]
