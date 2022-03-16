@@ -44,7 +44,7 @@ app.delete('/api/toy/:toyId', (req, res) => {
         .catch(() => res.status(401).end())
 })
 
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`App running at http://localhost:${port}`);

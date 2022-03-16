@@ -8,7 +8,7 @@ function query(filterBy){
     if(filterBy.name){
         const regex = new RegExp(filterBy.name, 'i')
         toys = toys.filter(toy => regex.test(toy.name));
-    } 
+    }
     if(filterBy.label){
         toys = toys.filter(toy => toy.labels.includes(filterBy.label));
     }

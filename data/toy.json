@@ -1,26 +1,24 @@
 [
   {
-    "name": "myman",
+    "name": "ayoayo",
+    "price": 100,
+    "labels": [
+      "On wheels"
+    ],
+    "inStock": false,
+    "createdAt": 1647364737146,
+    "_id": "tNeW9"
+  },
+  {
+    "name": "bruhhh",
     "price": 300,
     "labels": [
       "On wheels",
-      "Art",
-      "Doll"
+      "Box game",
+      "Art"
     ],
     "inStock": true,
-    "createdAt": 1647447920318,
-    "_id": "COuyo"
-  },
-  {
-    "name": "aooaooyyo",
-    "price": 400,
-    "labels": [
-      "Puzzle",
-      "Art",
-      "On wheels"
-    ],
-    "inStock": true,
-    "createdAt": 1647450021308,
-    "_id": "32FxE"
+    "createdAt": 1647364753352,
+    "_id": "TpfH1"
   }
 ]
