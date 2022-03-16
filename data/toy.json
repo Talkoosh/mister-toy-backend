@@ -1,0 +1,26 @@
+[
+  {
+    "name": "myman",
+    "price": 300,
+    "labels": [
+      "On wheels",
+      "Art",
+      "Doll"
+    ],
+    "inStock": true,
+    "createdAt": 1647447920318,
+    "_id": "COuyo"
+  },
+  {
+    "name": "aooaooyyo",
+    "price": 400,
+    "labels": [
+      "Puzzle",
+      "Art",
+      "On wheels"
+    ],
+    "inStock": true,
+    "createdAt": 1647450021308,
+    "_id": "32FxE"
+  }
+]
