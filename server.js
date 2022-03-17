@@ -1,53 +1,45 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const path = require('path')
+const session = require('session')
 const toyService = require('./services/toyService.js')
 
 const app = express();
+const http = require('http').createServer(app)
 
+app.use(express.json())
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cors())
 
-app.get('/api/toy', (req, res) => {
-    const filterBy = req.body;
-    toyService.query(filterBy)
-        .then(toys => res.send(toys))
-        .catch(() => res.status(401).end())
+if (process.env.NODE_ENV === 'production') {
+    // Express serve static files on production environment
+    app.use(express.static(path.resolve(__dirname, 'public')))
+} else {
+    // Configuring CORS
+    const corsOptions = {
+        // Make sure origin contains the url your frontend is running on
+        origin: ['http://127.0.0.1:8080', 'http://localhost:8080','http://127.0.0.1:3000', 'http://localhost:3000'],
+        credentials: true
+    }
+    app.use(cors(corsOptions))
+}
+
+// routes
+
+const toyRoutes = require('./api/toy/toy.routes')
+
+app.use('/api/toy', toyRoutes);
+
+
+
+app.get('/**', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-app.get('/api/toy/:toyId', (req,res) => {
-    const id = req.params.toyId;
-    toyService.get(id)
-        .then(toy => res.send(toy))
-        .catch(() => res.status(401).end())
+const port = process.env.PORT || 3030;
 
-})
-
-app.post('/api/toy', (req, res) => {
-    toyService.post(req.body)
-        .then(toy => res.send(toy))
-        .catch(() => res.status(401).end())
-})
-
-app.put('/api/toy', (req, res) => {
-    toyService.put(req.body)
-        .then(toy => res.send(toy))
-        .catch(() => res.status(401).end())
-})
-
-app.delete('/api/toy/:toyId', (req, res) => {
-    const toyId = req.params.toyId; 
-    toyService.remove(toyId)
-        .then(() => res.send())
-        .catch(() => res.status(401).end())
-})
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`App running at http://localhost:${port}`);
 })
-
-
