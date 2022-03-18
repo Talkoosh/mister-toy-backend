@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path')
-const session = require('session')
+const expressSession = require('express-session')
 const toyService = require('./services/toyService.js')
 
 const app = express();
@@ -12,6 +12,16 @@ app.use(express.json())
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cors())
+
+const session = expressSession({
+    secret: 'olaiklelaike109xyZ',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+})
+
+app.use(session)
+
 
 if (process.env.NODE_ENV === 'production') {
     // Express serve static files on production environment
@@ -29,9 +39,12 @@ if (process.env.NODE_ENV === 'production') {
 // routes
 
 const toyRoutes = require('./api/toy/toy.routes')
+const authRoutes = require('./api/auth/auth.routes');
+const userRoutes = require('./api/user/user.routes')
 
 app.use('/api/toy', toyRoutes);
-
+app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
 
 
 app.get('/**', (req, res) => {
