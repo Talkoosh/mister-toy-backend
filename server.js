@@ -3,15 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path')
 const expressSession = require('express-session')
-const toyService = require('./services/toyService.js')
 
 const app = express();
 const http = require('http').createServer(app)
 
-app.use(express.json())
-app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(cors())
 
 const session = expressSession({
     secret: 'olaiklelaike109xyZ',
@@ -20,6 +16,8 @@ const session = expressSession({
     cookie: { secure: false }
 })
 
+app.use(express.json())
+app.use(express.static('public'));
 app.use(session)
 
 
@@ -54,5 +52,5 @@ app.get('/**', (req, res) => {
 const port = process.env.PORT || 3030;
 
 http.listen(port, () => {
-    console.log(`App running at http://localhost:${port}`);
+    console.log(`server running at http://localhost:${port}`);
 })
