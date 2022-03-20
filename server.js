@@ -36,13 +36,19 @@ if (process.env.NODE_ENV === 'production') {
 
 // routes
 
-const toyRoutes = require('./api/toy/toy.routes')
-const authRoutes = require('./api/auth/auth.routes');
-const userRoutes = require('./api/user/user.routes')
+const toyRoutes = require('./api/toy/toy.routes.js')
+const authRoutes = require('./api/auth/auth.routes.js');
+const userRoutes = require('./api/user/user.routes.js')
+const reviewRoutes = require('./api/review/review.routes')
+
+const setupAsyncLocalStorage = require('./middlewares/setAls.middleware')
+app.all('*', setupAsyncLocalStorage)
 
 app.use('/api/toy', toyRoutes);
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/review', reviewRoutes)
+
 
 
 app.get('/**', (req, res) => {
