@@ -7,7 +7,7 @@ async function query(filterBy = {}) {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('review')
         // const reviews = await collection.find(criteria).toArray()
-        var reviews = await collection.aggregate([
+        let reviews = await collection.aggregate([
             {
                 $match: criteria
             },
@@ -29,7 +29,7 @@ async function query(filterBy = {}) {
                     localField: 'toyId',
                     from: 'toy',
                     foreignField: '_id',
-                    as: 'aboutToy'
+                    as: 'aboutToy' 
                 }
             },
             {
@@ -37,6 +37,7 @@ async function query(filterBy = {}) {
             }
         ]).toArray()
 
+        console.log(reviews);
 
         reviews = reviews.map(review => {
             review.byUser = { _id: review.byUser._id, fullname: review.byUser.fullname }
@@ -47,11 +48,12 @@ async function query(filterBy = {}) {
         })
 
         //filter
-        if (criteria.byToyId) {
-            reviews.filter(review => ObjectId.toString(review.aboutToy._id) === criteria.byToyId)
-        }
+        // if (criteria.byToyId) {
+        //     reviews.filter(review => ObjectId.toString(review.aboutToy._id) === criteria.byToyId)
+        // }
 
         return reviews
+
     } catch (err) {
         throw err
     }
@@ -90,8 +92,9 @@ async function add(review) {
 
 function _buildCriteria(filterBy) {
     const criteria = {}
-    if (filterBy.byUserId) criteria.byUserId = filterBy.byUserId;
-    if (filterBy.byToyId) criteria.byToyId = filterBy.byToyId;
+    if (filterBy.byUserId) criteria.byUserId = ObjectId(filterBy.byUserId);
+    if (filterBy.byToyId) criteria.toyId = ObjectId(filterBy.byToyId);
+    console.log(criteria);
     return criteria
 }
 
