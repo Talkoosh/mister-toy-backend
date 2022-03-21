@@ -55,7 +55,7 @@ async function post(toy) {
 
 async function put(toy) {
     try {
-        var id = ObjectId(toy._id)
+        let id = (typeof toy._id === 'String') ? ObjectId(toy._id) : toy._id;
         delete toy._id
         const collection = await dbService.getCollection('toy')
         await collection.updateOne({ "_id": id }, { $set: { ...toy } })
@@ -76,8 +76,8 @@ async function remove(id) {
         console.log('arrived');
         const collection = await dbService.getCollection('toy');
         await collection.deleteOne({ '_id': ObjectId(id) })
-        return id; 
-    } catch (err){
+        return id;
+    } catch (err) {
         throw err
     }
 
